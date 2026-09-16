@@ -1,0 +1,11 @@
+PartMe.AI Comfy Plugin
+Copyright 2026 PartMe.AI
+
+This plugin vendors content from Comfy-Org/comfy-skills
+(https://github.com/Comfy-Org/comfy-skills), licensed under the MIT License
+(Copyright (c) 2026 Comfy-Org). See upstream/comfy-skills.lock.json for the
+pinned revision. Vendored: command and skill bodies; the Comfy Cloud MCP
+endpoint configuration originates from the upstream comfy-cloud plugin.
+
+Comfy and ComfyUI are trademarks of Comfy Org; this plugin is an independent
+integration and is not affiliated with or endorsed by Comfy Org.

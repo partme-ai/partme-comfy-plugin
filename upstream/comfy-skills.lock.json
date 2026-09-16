@@ -1,0 +1,11 @@
+{
+  "upstream": "https://github.com/Comfy-Org/comfy-skills",
+  "license": "MIT",
+  "ref": "main",
+  "sha": "d50722a53585d0ab4fd1909fd59294b978aad449",
+  "vendored": {
+    "commands/": "claude-code/commands/ (verbatim bodies, filenames prefixed comfy-)",
+    "skills/": "skills/ (verbatim bodies, wrapped in SKILL.md frontmatter)",
+    "mcpServers": "claude-code/.claude-plugin/plugin.json comfy-cloud http endpoint"
+  }
+}

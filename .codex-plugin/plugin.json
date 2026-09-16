@@ -1,0 +1,17 @@
+{
+  "name": "partme-comfy",
+  "version": "0.1.0",
+  "description": "Comfy Cloud for coding agents — generate images, video, audio, and 3D, search models, nodes, and templates, and run ComfyUI workflows via the hosted Comfy MCP.",
+  "author": { "name": "Full Stack Skills / PartMe.AI", "url": "https://github.com/partme-ai" },
+  "homepage": "https://github.com/partme-ai/partme-comfy-plugin",
+  "repository": "https://github.com/partme-ai/partme-comfy-plugin",
+  "license": "Apache-2.0",
+  "keywords": ["comfy", "comfyui", "text2image", "text2video", "workflow"],
+  "skills": "./skills/",
+  "mcpServers": {
+    "comfy-cloud": {
+      "type": "http",
+      "url": "https://cloud.comfy.org/mcp"
+    }
+  }
+}
