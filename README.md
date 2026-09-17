@@ -43,6 +43,31 @@ Optional userConfig: `comfy_api_key`（sensitive，注入 `X-API-Key` 头）。�
 
 或 `/plugins` 面板直接添加本仓库 GitHub URL。凭据：设置环境变量 `COMFY_API_KEY`（`bearerTokenEnvVar` 注入）。
 
+### China mirror (AtomGit)
+
+If GitHub is slow or unreachable, install from the AtomGit mirror instead. The
+commands are identical apart from the marketplace URL:
+
+```bash
+codex plugin marketplace add https://atomgit.com/partme-ai/partme-comfy-plugin.git --ref main
+codex plugin add comfy-design@partme-ai
+```
+
+To install the whole partme-ai plugin catalog from the mirror in one step:
+
+```bash
+codex plugin marketplace add https://atomgit.com/partme-ai/plugins.git
+codex plugin add comfy-design@partme-ai
+```
+
+Notes:
+
+- The AtomGit source and the GitHub source share marketplace names, so adding
+  one replaces the other. Switch back with
+  `codex plugin marketplace add https://github.com/partme-ai/plugins.git`.
+- For ZCode or Kimi, clone the mirror repository and register the local
+  directory in the respective marketplace configuration.
+
 ## Local ComfyUI path (optional)
 
 云端路径无需本地安装。若要走本地 ComfyUI：
