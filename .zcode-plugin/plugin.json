@@ -1,25 +1,37 @@
 {
-  "name": "comfy",
-  "displayName": "Comfy",
-  "displayName_i18n": { "en": "Comfy", "zh-CN": "Comfy 工作流" },
+  "name": "comfy-design",
+  "displayName": "Comfy Design",
+  "displayName_i18n": {
+    "en": "Comfy Design",
+    "zh-CN": "Comfy 工作流"
+  },
   "version": "0.1.0",
-  "description": "Comfy Cloud for coding agents — generate images, video, audio, and 3D, search models, nodes, and templates, and run ComfyUI workflows via the hosted Comfy MCP.",
+  "description": "Generate images, video, audio, and 3D, search models and nodes, and run Comfy Cloud workflows through MCP.",
   "description_i18n": {
     "en": "Comfy Cloud for coding agents — generate images, video, audio, and 3D, search models, nodes, and templates, and run ComfyUI workflows via the hosted Comfy MCP.",
     "zh-CN": "编码智能体直连 Comfy Cloud：文生图/视频/音频/3D，搜索模型、节点与模板，经托管 Comfy MCP 运行 ComfyUI 工作流。"
   },
-  "author": { "name": "Full Stack Skills / PartMe.AI", "url": "https://github.com/partme-ai" },
+  "author": {
+    "name": "Full Stack Skills / PartMe.AI",
+    "url": "https://github.com/partme-ai"
+  },
   "homepage": "https://github.com/partme-ai/partme-comfy-plugin",
   "repository": "https://github.com/partme-ai/partme-comfy-plugin",
   "license": "Apache-2.0",
-  "keywords": ["comfy", "comfyui", "workflow"],
+  "keywords": [
+    "comfy",
+    "comfyui",
+    "workflow"
+  ],
   "skills": "skills",
   "commands": "commands",
   "mcpServers": {
     "comfy-cloud": {
       "type": "http",
       "url": "https://cloud.comfy.org/mcp",
-      "headers": { "X-API-Key": "${user_config.comfy_api_key}" }
+      "headers": {
+        "X-API-Key": "${user_config.comfy_api_key}"
+      }
     }
   },
   "userConfig": {

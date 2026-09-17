@@ -1,13 +1,46 @@
 {
-  "name": "partme-comfy",
+  "name": "comfy-design",
   "version": "0.1.0",
-  "description": "Comfy Cloud for coding agents — generate images, video, audio, and 3D, search models, nodes, and templates, and run ComfyUI workflows via the hosted Comfy MCP.",
-  "author": { "name": "Full Stack Skills / PartMe.AI", "url": "https://github.com/partme-ai" },
+  "description": "Generate images, video, audio, and 3D, search models and nodes, and run Comfy Cloud workflows through MCP.",
+  "author": {
+    "name": "Full Stack Skills / PartMe.AI",
+    "url": "https://github.com/partme-ai"
+  },
   "homepage": "https://github.com/partme-ai/partme-comfy-plugin",
   "repository": "https://github.com/partme-ai/partme-comfy-plugin",
   "license": "Apache-2.0",
-  "keywords": ["comfy", "comfyui", "text2image", "text2video", "workflow"],
+  "keywords": [
+    "comfy",
+    "comfyui",
+    "text2image",
+    "text2video",
+    "workflow"
+  ],
   "skills": "./skills/",
+  "interface": {
+    "displayName": "Comfy Design",
+    "shortDescription": "Comfy Cloud generation workflows",
+    "longDescription": "Operate Comfy Cloud from Codex: generate images, video, audio, and 3D, search models, nodes, and templates, and run ComfyUI workflows through the hosted Comfy MCP.",
+    "developerName": "Full Stack Skills / PartMe.AI",
+    "category": "Creativity",
+    "websiteURL": "https://github.com/partme-ai/partme-comfy-plugin",
+    "brandColor": "#F2FF59",
+    "composerIcon": "./assets/composer-icon.png",
+    "logo": "./assets/official-logo.png",
+    "logoDark": "./assets/official-logo.png",
+    "screenshots": [],
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "privacyPolicyURL": "https://github.com/partme-ai/partme-comfy-plugin/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/partme-ai/partme-comfy-plugin/blob/main/TERMS.md",
+    "defaultPrompt": [
+      "Generate an image with a Comfy Cloud workflow and show the result",
+      "Search Comfy Cloud models and nodes for my use case",
+      "Run this ComfyUI workflow and verify the outputs"
+    ]
+  },
   "mcpServers": {
     "comfy-cloud": {
       "type": "http",

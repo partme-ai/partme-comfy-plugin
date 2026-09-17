@@ -20,7 +20,7 @@ Vendored bodies are **unmodified**; only platform packaging (frontmatter, manife
 
 ```bash
 codex plugin marketplace add partme-ai/plugins
-codex plugin add partme-comfy@partme-ai
+codex plugin add comfy-design@partme-ai
 ```
 
 First generation triggers OAuth login, or set an API key (created at platform.comfy.org/profile/api-keys, prefix `comfyui-`):

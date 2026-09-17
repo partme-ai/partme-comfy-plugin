@@ -1,13 +1,19 @@
 {
-  "name": "comfy",
+  "name": "comfy-design",
   "version": "0.1.0",
-  "description": "Comfy Cloud for coding agents — generate images, video, audio, and 3D, search models, nodes, and templates, and run ComfyUI workflows via the hosted Comfy MCP.",
-  "author": { "name": "Full Stack Skills / PartMe.AI" },
+  "description": "Generate images, video, audio, and 3D, search models and nodes, and run Comfy Cloud workflows through MCP.",
+  "author": {
+    "name": "Full Stack Skills / PartMe.AI"
+  },
   "homepage": "https://github.com/partme-ai/partme-comfy-plugin",
   "license": "Apache-2.0",
-  "keywords": ["comfy", "comfyui", "workflow"],
+  "keywords": [
+    "comfy",
+    "comfyui",
+    "workflow"
+  ],
   "interface": {
-    "displayName": "Comfy",
+    "displayName": "Comfy Design",
     "shortDescription": "Comfy Cloud generation workflows",
     "longDescription": "Operate Comfy Cloud from your coding agent: generate images, video, audio, and 3D, search models, nodes, and templates, and run ComfyUI workflows through the hosted Comfy MCP.",
     "developerName": "Full Stack Skills / PartMe.AI",
@@ -22,7 +28,15 @@
     }
   },
   "hooks": [
-    { "event": "SessionStart", "command": "python3 ./hooks/env_check.py", "timeout": 30 },
-    { "event": "UserPromptSubmit", "command": "python3 ./hooks/check_comfy_intent.py", "timeout": 15 }
+    {
+      "event": "SessionStart",
+      "command": "python3 ./hooks/env_check.py",
+      "timeout": 30
+    },
+    {
+      "event": "UserPromptSubmit",
+      "command": "python3 ./hooks/check_comfy_intent.py",
+      "timeout": 15
+    }
   ]
 }
