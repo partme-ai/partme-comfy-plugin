@@ -12,4 +12,4 @@
 
 - [x] 3.1 Add CI for manifests, skills, safety, and vendor integrity.
 - [x] 3.2 Bump versions and verify Codex, ZCode, and Kimi manifests.
-- [ ] 3.3 Publish tag and GitHub Release after all checks pass.
+- [x] 3.3 Publish tag and GitHub Release after all checks pass.
