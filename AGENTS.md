@@ -18,6 +18,23 @@ node scripts/bump-plugin.mjs comfy-design major   # 破坏性变更
 当日 `+codex.日期` 后缀）+ 三平台市场清单重新生成与校验。之后按脚本
 提示提交并 push **两个仓库**（本仓 + plugins 市场仓）。
 
+### 市场仓版本同步（强制，漏做用户就看不到更新）
+
+插件仓 bump+push 只是第一步——**ZCode/Codex/Kimi 感知更新看的是市场仓清单**。
+每次发版必须同步更新市场仓的 catalog 版本并重新生成清单：
+
+cd <市场仓目录>  # 本仓: workspace-agent-skills/full-aigc-plugins
+python3 - <<'EOF'
+import json
+d = json.load(open("catalog.json"))
+for p in d["plugins"]:
+    if p["id"] == "<插件id>": p["version"] = "<新版本号>"
+json.dump(d, open("catalog.json","w"), ensure_ascii=False, indent=2); open("catalog.json","a").write("
+")
+EOF
+node scripts/sync-marketplaces.mjs --write && node scripts/sync-marketplaces.mjs
+git add -A && git commit -m "release: <插件id> <版本>" && git push
+
 ### 硬性禁令
 
 - 禁止改代码不 bump 版本（「小版本也要发」）

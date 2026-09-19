@@ -64,7 +64,7 @@ const bump = (v) => {
 };
 
 const catalogPath = path.join(root, "catalog.json");
-const workspace = path.dirname(root);
+const workspace = path.resolve(root, "..", "full-aigc-plugins-repositories");
 const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf8"));
 const plugin = catalog.plugins.find((p) => p.id === pluginId);
 if (!plugin) {
