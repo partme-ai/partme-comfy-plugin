@@ -41,12 +41,25 @@ function resolvePluginsRoot() {
     return path.resolve(scriptDir, "..");
   }
   let dir = path.resolve(scriptDir, "..");
+  // 优先：插件仓位于 <市场名>-repositories/<插件>/ 下时，市场就是上两级的 <市场名>
+  const repoDirName = path.basename(path.dirname(dir));   // …/<市场>-repositories
+  if (repoDirName.endsWith("-repositories")) {
+    const market = path.join(path.dirname(path.dirname(dir)), repoDirName.replace(/-repositories$/, ""));
+    if (fs.existsSync(path.join(market, "catalog.json"))) return market;
+  }
   while (dir !== path.parse(dir).root) {
-    const candidate = path.join(dir, "plugins", "catalog.json");
-    if (fs.existsSync(candidate)) return path.join(dir, "plugins");
+    if (fs.existsSync(path.join(dir, "plugins", "catalog.json"))) return path.join(dir, "plugins");
+    try {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        if (entry.isDirectory() && /-plugins$/.test(entry.name)
+            && fs.existsSync(path.join(dir, entry.name, "catalog.json"))) {
+          return path.join(dir, entry.name);
+        }
+      }
+    } catch { /* 不可读目录跳过 */ }
     dir = path.dirname(dir);
   }
-  throw new Error("找不到 plugins 市场仓（含 catalog.json）。可设 PARTME_PLUGINS_ROOT 指定。");
+  throw new Error("找不到插件市场仓。可设 PARTME_PLUGINS_ROOT 指定。");
 }
 
 
