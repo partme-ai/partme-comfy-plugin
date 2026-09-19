@@ -1,0 +1,78 @@
+name: skills-sync
+
+on:
+  repository_dispatch:
+    types: [skills-updated]
+  schedule:
+    - cron: "41 3 * * *"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Optional immutable comfy-skills release tag
+        required: false
+        type: string
+      sha:
+        description: Required peeled commit SHA when ref is provided
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.SKILLS_SYNC_TOKEN || secrets.GITHUB_TOKEN }}
+      REQUESTED_REF: ${{ github.event.client_payload.ref || inputs.ref }}
+      REQUESTED_SHA: ${{ github.event.client_payload.sha || inputs.sha }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          token: ${{ secrets.SKILLS_SYNC_TOKEN || secrets.GITHUB_TOKEN }}
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Vendor skills from pinned sources
+        shell: bash
+        run: |
+          arguments=(update)
+          if [[ -n "$REQUESTED_REF" || -n "$REQUESTED_SHA" ]]; then
+            if [[ -z "$REQUESTED_REF" || -z "$REQUESTED_SHA" ]]; then
+              echo "::error::Both ref and sha are required for a release upgrade"
+              exit 1
+            fi
+            arguments+=(--source-ref "comfy-skills=$REQUESTED_REF")
+            arguments+=(--expected-sha "comfy-skills=$REQUESTED_SHA")
+          fi
+          python3 scripts/vendor/skill_vendor.py "${arguments[@]}"
+      - name: Verify the fresh snapshot
+        run: python3 scripts/vendor/skill_vendor.py check
+      - name: Push a sync branch when the snapshot changed
+        id: push
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "vendored skills already current; nothing to sync"
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B chore/skills-sync
+          git add skills/ skills.lock.json
+          git commit -m "chore: sync vendored skills from comfy-skills ${REQUESTED_REF:-current-lock}"
+          git push --force-with-lease origin chore/skills-sync
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      - name: Open the sync PR if none exists
+        if: steps.push.outputs.changed == 'true'
+        run: |
+          if gh pr view chore/skills-sync >/dev/null 2>&1; then
+            echo "sync PR already open; branch updated"
+            exit 0
+          fi
+          gh pr create \
+            --title "chore: sync vendored Comfy skills ${REQUESTED_REF:-current-lock}" \
+            --body "Automated refresh of the checksummed skill snapshot from skills.lock.json. Requested release: ${REQUESTED_REF:-current lock}; expected commit: ${REQUESTED_SHA:-already pinned}. Externally managed skills come from full-aigc-skills/comfy-skills; plugin-local exceptions must be declared in plugin-local-skills.json." \
+            --head chore/skills-sync --base main \
+            --label skills-sync

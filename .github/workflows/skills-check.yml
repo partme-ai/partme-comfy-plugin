@@ -1,0 +1,47 @@
+name: skills-check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  vendor-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - name: Verify vendored skills match the lockfile digests
+        run: python3 scripts/vendor/skill_vendor.py check --offline
+      - name: Verify lockfile pins still match upstream refs and content
+        run: python3 scripts/vendor/skill_vendor.py check
+      - name: Exercise vendor and manifest behavior
+        run: python3 -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Reject direct edits to externally managed skills
+        if: github.event_name == 'pull_request'
+        run: |
+          changed="$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")"
+          CHANGED="$changed" python3 - <<'PY'
+          import json
+          import os
+          import sys
+
+          changed = {line for line in os.environ["CHANGED"].splitlines() if line}
+          if "skills.lock.json" in changed:
+              raise SystemExit(0)
+          lock = json.load(open("skills.lock.json", encoding="utf-8"))
+          prefixes = {
+              f"{source['dest'].rstrip('/')}/{name}/"
+              for source in lock["sources"]
+              for name in source["skills"]
+          }
+          bypassed = sorted(path for path in changed if any(path.startswith(prefix) for prefix in prefixes))
+          if bypassed:
+              print("::error::Externally managed skills changed without skills.lock.json: " + ", ".join(bypassed))
+              print("Edit comfy-skills, release a new tag, then run scripts/vendor/skill_vendor.py update.")
+              sys.exit(1)
+          PY

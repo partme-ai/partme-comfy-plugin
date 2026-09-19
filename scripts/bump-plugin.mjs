@@ -118,7 +118,7 @@ fs.writeFileSync(catalogPath, catalogText);
 
 // 2) 各仓 manifest
 const bumpPlain = (text) => text.replace(`"version": "${oldVersion}"`, `"version": "${newVersion}"`);
-const bumpCodex = (text) => text.replace(/"version": "\d+\.\d+\.\d+\+codex\.\d+"/, `"version": "${newVersion}+codex.${today}"`);
+const bumpCodex = (text) => text.replace(/"version": "\d+\.\d+\.\d+(?:\+codex\.\d+)?"/, `"version": "${newVersion}+codex.${today}"`);
 
 fs.writeFileSync(edits[1].file, bumpPlain(fs.readFileSync(edits[1].file, "utf8")));
 fs.writeFileSync(edits[2].file, bumpPlain(fs.readFileSync(edits[2].file, "utf8")));

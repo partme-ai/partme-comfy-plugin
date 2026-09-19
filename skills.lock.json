@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "sources": [
+    {
+      "package": "comfy-skills",
+      "repo": "https://github.com/full-aigc-skills/comfy-skills.git",
+      "ref": "v0.1.0",
+      "sha": "7d21bb5d279d1fecdd50c99e89432b8f900a7483",
+      "skills": [
+        "comfy-generate-3d",
+        "comfy-generate-audio",
+        "comfy-generate-image",
+        "comfy-generate-video",
+        "comfy-help",
+        "comfy-remove-background",
+        "comfy-search-models",
+        "comfy-search-nodes",
+        "comfy-search-templates",
+        "comfy-upscale-image",
+        "technique-combine-people"
+      ],
+      "dest": "skills/",
+      "sha256": {
+        "comfy-generate-3d": "d0d3e6a5219fd311b868939eb43a8173e221689d36577632ca8b762e8fc3ba0e",
+        "comfy-generate-audio": "2f3dcdde8725183c14e287cbc0de683482312ea0b1cf9d7521909aa2d9266654",
+        "comfy-generate-image": "961d396faac6a45a80f0b19d4498d6628ff53ce3d5c75e1bb0bfffc7751fee29",
+        "comfy-generate-video": "7faf2c09569cbd3cac9f59f1bb9264bab62e3d58b3d629e7b94ae00d576b9504",
+        "comfy-help": "188c0ca822c3c5246a5a4f8daecf27c72b617902b59403580aa08df796e96257",
+        "comfy-remove-background": "1a415a7d6b84aaf786d7c6ad955100a241f75ad0e63cc89aad6882f9a677365d",
+        "comfy-search-models": "ebe5a41ca18656b04cd9cec0bee63c3202c3c7fb7442a90393e015af071cc23e",
+        "comfy-search-nodes": "d2d8d2ebb77605f4a1d8fa5f20bdda75cc8d38f69f1b4d90cf38fff706cb1451",
+        "comfy-search-templates": "81ea9c67da91941f17eabafa0f143ea92eb15abdb3afdd5f428f23d5a95bc600",
+        "comfy-upscale-image": "f84e7f9d9b2d9e602c33e16c0caa19c76463e8578be464909a05e1c1022a7c94",
+        "technique-combine-people": "91ef50b4fe456024df1913eacb2998c1cb0870debfc738290dd5411bfdbde9e2"
+      }
+    }
+  ]
+}

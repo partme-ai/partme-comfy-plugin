@@ -1,8 +1,21 @@
 {
   "upstream": "https://github.com/Comfy-Org/comfy-skills",
   "license": "MIT",
-  "ref": "main",
+  "ref": "d50722a53585d0ab4fd1909fd59294b978aad449",
   "sha": "d50722a53585d0ab4fd1909fd59294b978aad449",
+  "skills": [
+    "comfy-generate-3d",
+    "comfy-generate-audio",
+    "comfy-generate-image",
+    "comfy-generate-video",
+    "comfy-help",
+    "comfy-remove-background",
+    "comfy-search-models",
+    "comfy-search-nodes",
+    "comfy-search-templates",
+    "comfy-upscale-image",
+    "technique-combine-people"
+  ],
   "vendored": {
     "commands/": "claude-code/commands/ (verbatim bodies, filenames prefixed comfy-)",
     "skills/": "skills/ (verbatim bodies, wrapped in SKILL.md frontmatter)",
